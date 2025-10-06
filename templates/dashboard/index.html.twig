@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de Bord - ÉcoCollecte{% endblock %}
+
+{% block body %}
+<div class="container-fluid py-4">
+    <!-- En-tête -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="page-title">
+                <i class="fas fa-leaf me-3"></i>
+                Tableau de Bord ÉcoCollecte
+            </h1>
+            <p class="text-muted">Gestion durable des points de collecte et dépôts de déchets</p>
+        </div>
+    </div>
+
+    <!-- Cartes de statistiques -->
+    <div class="row mb-5">
+        <div class="col-md-4 mb-4">
+            <div class="stats-card h-100">
+                <div class="card-body">
+                    <i class="fas fa-map-marker-alt fa-2x mb-3"></i>
+                    <h5 class="card-title">Points de Collecte</h5>
+                    <p class="card-text display-4">{{ nombrePoints }}</p>
+                    <small>Actifs sur la plateforme</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="stats-card h-100">
+                <div class="card-body">
+                    <i class="fas fa-weight fa-2x mb-3"></i>
+                    <h5 class="card-title">Poids Total Collecté</h5>
+                    <p class="card-text display-4">{{ poidsTotal|number_format(0) }}</p>
+                    <small>kilogrammes</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="stats-card h-100">
+                <div class="card-body">
+                    <i class="fas fa-recycle fa-2x mb-3"></i>
+                    <h5 class="card-title">Types de Déchets</h5>
+                    <p class="card-text display-4">{{ totauxParType|length }}</p>
+                    <small>Catégories différentes</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tableaux -->
+    <div class="row">
+        <!-- Totaux par type -->
+        <div class="col-lg-6 mb-4">
+            <div class="eco-card h-100">
+                <div class="card-body">
+                    <h4 class="section-title">
+                        <i class="fas fa-chart-pie me-2"></i>
+                        Répartition par Type de Déchet
+                    </h4>
+                    <div class="table-responsive">
+                        <table class="table eco-table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Poids Total</th>
+                                    <th>Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for total in totauxParType %}
+                                <tr>
+                                    <td>
+                                        <span class="badge-eco">{{ total.type }}</span>
+                                    </td>
+                                    <td>
+                                        <strong>{{ total.total_poids|number_format(1) }} kg</strong>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">{{ total.total_depots }} dépôts</small>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Derniers dépôts -->
+        <div class="col-lg-6 mb-4">
+            <div class="eco-card h-100">
+                <div class="card-body">
+                    <h4 class="section-title">
+                        <i class="fas fa-history me-2"></i>
+                        Dépôts Récents
+                    </h4>
+                    <div class="table-responsive">
+                        <table class="table eco-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Poids</th>
+                                    <th>Lieu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for depot in derniersDepots %}
+                                <tr>
+                                    <td>
+                                        <small>{{ depot.date|date('d/m/Y') }}</small>
+                                        <br>
+                                        <small class="text-muted">{{ depot.date|date('H:i') }}</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge-eco">{{ depot.type }}</span>
+                                    </td>
+                                    <td>
+                                        <strong>{{ depot.poidsEstime }} kg</strong>
+                                    </td>
+                                    <td>
+                                        <small>{{ depot.pointCollecte.adresse }}</small>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation rapide -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="quick-nav eco-card">
+                <h4 class="section-title text-center mb-4">Actions Rapides</h4>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="{{ path('app_point_collecte_index') }}" class="eco-btn">
+                        <i class="fas fa-map-marked-alt me-2"></i>
+                        Points de Collecte
+                    </a>
+                    <a href="{{ path('app_depot_index') }}" class="eco-btn eco-btn-secondary">
+                        <i class="fas fa-list-alt me-2"></i>
+                        Journal des Dépôts
+                    </a>
+                    <a href="{{ path('app_depot_new') }}" class="eco-btn">
+                        <i class="fas fa-plus-circle me-2"></i>
+                        Nouveau Dépôt
+                    </a>
+                    <a href="{{ path('app_point_collecte_new') }}" class="eco-btn eco-btn-secondary">
+                        <i class="fas fa-plus me-2"></i>
+                        Nouveau Point
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Indicateur écologique -->
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <div class="eco-card">
+                <div class="card-body py-3">
+                    <p class="mb-0 text-muted">
+                        <i class="fas fa-leaf me-2"></i>
+                        🌱 Ensemble, nous avons collecté <strong>{{ poidsTotal|number_format(0) }} kg</strong> de déchets et contribué à préserver notre environnement.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

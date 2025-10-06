@@ -1,0 +1,12 @@
+494c40,127.0.0.1,GET,http://localhost:8000/,1759759838,f78e33,500,request
+f78e33,127.0.0.1,GET,http://localhost:8000/,1759759838,,500,request
+20a7be,127.0.0.1,GET,http://127.0.0.1:8000/,1759759889,c04f63,500,request
+c04f63,127.0.0.1,GET,http://127.0.0.1:8000/,1759759889,,500,request
+dbe995,127.0.0.1,GET,http://127.0.0.1:8000/point/collecte,1759759989,e6d997,500,request
+e6d997,127.0.0.1,GET,http://127.0.0.1:8000/point/collecte,1759759989,,500,request
+2c73e6,127.0.0.1,GET,http://127.0.0.1:8000/,1759760432,,200,request
+108dbe,127.0.0.1,GET,http://127.0.0.1:8000/point/collecte,1759760442,,200,request
+36af33,127.0.0.1,GET,http://127.0.0.1:8000/point/collecte/new,1759760451,,200,request
+331c8d,127.0.0.1,GET,http://127.0.0.1:8000/point/collecte,1759760462,,200,request
+6f8d2e,127.0.0.1,GET,http://127.0.0.1:8000/point/collecte/new,1759760463,,200,request
+5da96d,127.0.0.1,GET,http://127.0.0.1:8000/point/collecte,1759760464,,200,request
